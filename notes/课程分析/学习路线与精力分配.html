@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 大模型学习路线 · 个人版 (11 年 iOS → 大模型应用)</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f6f7f9;
+    color: #1f2328;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  /* Header */
+  header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #4338ca 100%);
+    color: white;
+    padding: 48px 40px;
+    border-radius: 16px;
+    margin-bottom: 36px;
+  }
+  header h1 { margin: 0 0 12px; font-size: 30px; letter-spacing: -0.5px; }
+  header .subtitle { font-size: 16px; opacity: 0.92; margin-bottom: 24px; }
+  header .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  header .meta-item {
+    background: rgba(255,255,255,0.12);
+    padding: 14px 18px;
+    border-radius: 10px;
+    backdrop-filter: blur(6px);
+  }
+  header .meta-item .label { font-size: 12px; opacity: 0.75; margin-bottom: 4px; }
+  header .meta-item .value { font-size: 15px; font-weight: 600; }
+
+  /* Section Title */
+  h2.section-title {
+    font-size: 22px;
+    margin: 40px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e5e7eb;
+    color: #111827;
+  }
+
+  /* Priority Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: white;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 28px;
+    border: 1px solid #e5e7eb;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+  }
+
+  /* Badges */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+  .badge-core    { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+  .badge-key     { background: #ffedd5; color: #c2410c; border: 1px solid #fdba74; }
+  .badge-concept { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+  .badge-skim    { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+  .badge-optional{ background: #e5e7eb; color: #4b5563; border: 1px solid #d1d5db; }
+
+  /* Summary Table */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 36px;
+    font-size: 14px;
+  }
+  .summary-table th {
+    background: #f3f4f6;
+    text-align: left;
+    padding: 12px 14px;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .summary-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: middle;
+  }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table tr:hover { background: #fafbfc; }
+  .summary-table .stage-name { font-weight: 500; }
+
+  /* Stage Card */
+  .stage-card {
+    background: white;
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 18px;
+    border: 1px solid #e5e7eb;
+    border-left: 5px solid #d1d5db;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .stage-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  .stage-card.core    { border-left-color: #dc2626; }
+  .stage-card.key     { border-left-color: #ea580c; }
+  .stage-card.concept { border-left-color: #d97706; }
+  .stage-card.skim    { border-left-color: #059669; }
+  .stage-card.optional{ border-left-color: #6b7280; }
+
+  .stage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .stage-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+  }
+  .stage-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .stage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 28px;
+    margin-top: 12px;
+  }
+  @media (max-width: 720px) {
+    .stage-grid { grid-template-columns: 1fr; }
+  }
+  .stage-field { }
+  .stage-field .label {
+    font-size: 12px;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .stage-field .value { font-size: 14.5px; color: #1f2328; }
+  .stage-field ul { margin: 4px 0 0; padding-left: 20px; }
+  .stage-field li { margin-bottom: 3px; }
+
+  .stage-why {
+    background: #f9fafb;
+    border-left: 3px solid #9ca3af;
+    padding: 10px 14px;
+    margin-top: 16px;
+    border-radius: 4px;
+    font-size: 13.5px;
+    color: #4b5563;
+  }
+  .stage-why strong { color: #111827; }
+
+  .skip-note {
+    background: #fef9c3;
+    border: 1px dashed #facc15;
+    padding: 10px 14px;
+    margin-top: 12px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    color: #713f12;
+  }
+
+  /* Phase Header */
+  .phase-header {
+    background: white;
+    padding: 18px 24px;
+    border-radius: 12px;
+    margin: 32px 0 16px;
+    border: 1px solid #e5e7eb;
+    border-top: 4px solid #4338ca;
+  }
+  .phase-header h3 {
+    margin: 0 0 4px;
+    font-size: 18px;
+    color: #111827;
+  }
+  .phase-header .phase-meta {
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  /* Final Strategy */
+  .strategy-box {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-top: 32px;
+    border: 1px solid #fbbf24;
+  }
+  .strategy-box h3 { margin-top: 0; color: #78350f; }
+  .strategy-box ol li { margin-bottom: 10px; }
+
+  .timeline-box {
+    background: white;
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-top: 24px;
+    border: 1px solid #e5e7eb;
+  }
+  .timeline-box h3 { margin-top: 0; color: #111827; }
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 100px;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px dashed #e5e7eb;
+    align-items: center;
+    font-size: 14px;
+  }
+  .timeline-row:last-child { border-bottom: none; }
+  .timeline-row .month { font-weight: 600; color: #4338ca; }
+  .timeline-row .duration {
+    text-align: right;
+    color: #6b7280;
+    font-size: 13px;
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .stage-card { break-inside: avoid; }
+    header { background: #1e3a8a !important; -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>AI 大模型学习路线 · 个人定制版</h1>
+  <div class="subtitle">从 11 年 iOS 工程师 → 大模型应用开发岗,按"产出 offer"反推的精力分配</div>
+  <div class="meta">
+    <div class="meta-item">
+      <div class="label">你的画像</div>
+      <div class="value">11 年 iOS · 35+ · 转型核心期</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">目标</div>
+      <div class="value">2026 年底回青岛 · AI 应用开发岗</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">学习节奏</div>
+      <div class="value">2-3 个月看完核心 + 1-2 个月做项目</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">总时长预算</div>
+      <div class="value">~ 4-5 个月扎实推进</div>
+    </div>
+  </div>
+</header>
+
+<h2 class="section-title">优先级图例</h2>
+<div class="legend">
+  <div class="legend-item"><span class="badge badge-core">🔴 核心硬骨头</span>—— 必须吃透,简历主战场</div>
+  <div class="legend-item"><span class="badge badge-key">🟠 重点掌握</span>—— 扎实学,面试常考</div>
+  <div class="legend-item"><span class="badge badge-concept">🟡 理解原理</span>—— 知道是什么、何时用</div>
+  <div class="legend-item"><span class="badge badge-skim">🟢 速通/跳过</span>—— 你有底子,会用 AI 即可</div>
+  <div class="legend-item"><span class="badge badge-optional">⚪ 选学</span>—— 时间富裕再看</div>
+</div>
+
+<!-- =========== 总览表 =========== -->
+<h2 class="section-title">📊 一张表看全程</h2>
+<table class="summary-table">
+  <thead>
+    <tr>
+      <th style="width: 28%;">阶段</th>
+      <th style="width: 14%;">优先级</th>
+      <th style="width: 14%;">推荐时长</th>
+      <th>掌握程度</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="stage-name">阶段 01 · Python 语言</td><td><span class="badge badge-skim">🟢 速通</span></td><td>3-5 天碎片</td><td>遇到不懂问 AI 即可</td></tr>
+    <tr><td class="stage-name">阶段 02 · 算法与数据结构</td><td><span class="badge badge-skim">🟢 速通</span></td><td>3-5 天</td><td>刷面试高频题</td></tr>
+    <tr><td class="stage-name">阶段 03 · MySQL + Linux</td><td><span class="badge badge-skim">🟢 速通</span></td><td>2-3 天</td><td>挑生疏的看</td></tr>
+    <tr><td class="stage-name">阶段 04 · Numpy / Pandas</td><td><span class="badge badge-concept">🟡 理解</span></td><td>5-7 天</td><td>会查文档、能读懂</td></tr>
+    <tr><td class="stage-name">阶段 05 · 机器学习</td><td><span class="badge badge-concept">🟡 理解</span></td><td>1-2 周</td><td>能讲概念 + 会用 sklearn</td></tr>
+    <tr><td class="stage-name">阶段 06 · 深度学习(前半)</td><td><span class="badge badge-concept">🟡 理解</span></td><td>3-5 天</td><td>知道 CNN/RNN 是干嘛</td></tr>
+    <tr><td class="stage-name">阶段 06 · Transformer(后半)</td><td><span class="badge badge-core">🔴 核心</span></td><td>1-2 周</td><td>能徒手画图复述</td></tr>
+    <tr><td class="stage-name">阶段 07 · 项目一</td><td><span class="badge badge-optional">⚪ 选学</span></td><td>跳过</td><td>简历用不上</td></tr>
+    <tr><td class="stage-name">阶段 08 · NLP 与模型训练</td><td><span class="badge badge-key">🟠 重点</span></td><td>1-2 周</td><td>理解完整训练流程</td></tr>
+    <tr><td class="stage-name">阶段 09 · 项目二(NLP)</td><td><span class="badge badge-optional">⚪ 选学</span></td><td>跳过/速看</td><td>有更好的项目可做</td></tr>
+    <tr><td class="stage-name">阶段 10 · Agent / LangChain / MCP</td><td><span class="badge badge-core">🔴 核心</span></td><td>2-3 周</td><td>能独立搭 Agent 系统</td></tr>
+    <tr><td class="stage-name">阶段 11 · 知识图谱 Neo4j</td><td><span class="badge badge-key">🟠 重点</span></td><td>1-2 周</td><td>项目候选 ①</td></tr>
+    <tr><td class="stage-name">阶段 12 · Coze + Dify</td><td><span class="badge badge-concept">🟡 理解</span></td><td>3-5 天</td><td>了解低代码平台</td></tr>
+    <tr><td class="stage-name">阶段 13 · LoRA 微调实战</td><td><span class="badge badge-core">🔴 核心</span></td><td>2-3 周</td><td>能跑通完整 SFT/LoRA</td></tr>
+    <tr><td class="stage-name">阶段 14 · 强化学习</td><td><span class="badge badge-concept">🟡 理解</span></td><td>5-7 天</td><td>知道 RLHF/PPO 是啥</td></tr>
+    <tr><td class="stage-name">阶段 15 · 多模态大模型</td><td><span class="badge badge-concept">🟡 理解</span></td><td>5-7 天</td><td>了解 VLM 工作原理</td></tr>
+    <tr><td class="stage-name">阶段 16 · LangGraph</td><td><span class="badge badge-core">🔴 核心</span></td><td>1-2 周</td><td>能写多智能体编排</td></tr>
+    <tr><td class="stage-name">阶段 17/18/19 · Agent 项目</td><td><span class="badge badge-key">🟠 重点</span></td><td>1-2 周(挑 1)</td><td>项目候选 ②</td></tr>
+    <tr><td class="stage-name">附送 · RAG 实战</td><td><span class="badge badge-core">🔴 核心</span></td><td>1-2 周</td><td>能搭企业级 RAG</td></tr>
+    <tr><td class="stage-name">附送 · 面试专题</td><td><span class="badge badge-key">🟠 重点</span></td><td>沿途穿插 + 1 周冲刺</td><td>八股 + 项目讲解</td></tr>
+    <tr><td class="stage-name">附送 · 智能客服项目</td><td><span class="badge badge-optional">⚪ 选学</span></td><td>选做</td><td>第三个项目候选</td></tr>
+  </tbody>
+</table>
+
+<!-- =========== Phase 1 =========== -->
+<div class="phase-header">
+  <h3>🧱 Phase 1 · 基础地基(预计 2-3 周)</h3>
+  <div class="phase-meta">目标:把 Python 生态和 ML/DL 必备概念过一遍,为后面打底</div>
+</div>
+
+<div class="stage-card skim">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 01 · Python 大模型人工智能语言</h3>
+    <div class="stage-tags"><span class="badge badge-skim">🟢 速通</span><span class="badge">3-5 天</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">重点</div><div class="value">基础语法 / 装饰器 / async / 生成器 / 类型注解 —— 仅"能读懂"</div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">遇到 AI 写的代码能看懂在干嘛即可,不要求会徒手写</div></div>
+  </div>
+  <div class="skip-note">📌 <strong>你已经决定的策略:</strong>不专门看课,后面遇到不懂的特性直接问 AI,30 秒解决。你 11 年的工程素养完全 hold 得住这种"用到再学"模式。</div>
+  <div class="stage-why">🎯 <strong>为什么这么做:</strong>语法不是壁垒,是工具。你卡点不会在语法,会在 AI 概念。把时间留给值得的地方。</div>
+</div>
+
+<div class="stage-card skim">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 02 · 算法与数据结构</h3>
+    <div class="stage-tags"><span class="badge badge-skim">🟢 速通</span><span class="badge">3-5 天</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">重点</div><div class="value">面试高频题:数组 / 链表 / 树 / DP / 双指针 / 滑动窗口</div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">LeetCode 中等题能 20 分钟内写出来</div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么:</strong>AI 应用岗的算法面比纯算法岗轻,但仍会考。你 iOS 写过的算法基础够用,刷题就是恢复手感。</div>
+</div>
+
+<div class="stage-card skim">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 03 · MySQL + Linux/Shell</h3>
+    <div class="stage-tags"><span class="badge badge-skim">🟢 速通</span><span class="badge">2-3 天</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">重点</div><div class="value">SQL 基础查询 + Linux 常用命令</div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">能写 JOIN / GROUP BY,会用 ssh/scp/grep/awk</div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么:</strong>iOS 工作中接触过,扫一眼复习生疏的部分即可,别花大块时间。</div>
+</div>
+
+<div class="stage-card concept">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 04 · 数据分析(Numpy / Pandas)</h3>
+    <div class="stage-tags"><span class="badge badge-concept">🟡 理解</span><span class="badge">5-7 天</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">重点</div><div class="value">
+      <ul>
+        <li>Numpy 数组操作 / 广播机制(后面所有 tensor 操作的基础)</li>
+        <li>Pandas DataFrame 增删改查 / groupby / merge</li>
+      </ul>
+    </div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">看到代码能读懂,要写时能查文档实现</div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么:</strong>后面 ML/DL/数据预处理高频使用。不需要熟练手写,但要"看到 df.groupby(...).agg(...) 不头晕"。</div>
+</div>
+
+<!-- =========== Phase 2 =========== -->
+<div class="phase-header">
+  <h3>🧠 Phase 2 · ML/DL 概念地基(预计 3-4 周)</h3>
+  <div class="phase-meta">目标:为 Transformer 和后续大模型内容铺路,这一段会有几个真硬骨头</div>
+</div>
+
+<div class="stage-card concept">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 05 · 机器学习</h3>
+    <div class="stage-tags"><span class="badge badge-concept">🟡 理解</span><span class="badge">1-2 周</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">重点</div><div class="value">
+      <ul>
+        <li>线性 / 逻辑回归 · 决策树 · 随机森林 · XGBoost</li>
+        <li>SVM · KMeans · PCA(知道概念即可)</li>
+        <li>过拟合 / 正则化 / 评估指标(必考)</li>
+      </ul>
+    </div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">能用 sklearn 三行调出来 + 面试能讲 2 分钟原理</div></div>
+  </div>
+  <div class="skip-note">📌 <strong>明确跳过:</strong>手推梯度下降、SVM 核函数数学推导、从零实现决策树。这些是算法岗的事,不是你的。</div>
+  <div class="stage-why">🎯 <strong>为什么:</strong>大模型应用岗的"面试装备",不是"工作装备"。理解概念应付面试即可。</div>
+</div>
+
+<div class="stage-card core">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 06 · 深度学习 ⚠️ 分两半</h3>
+    <div class="stage-tags"><span class="badge badge-core">🔴 核心</span><span class="badge">2-3 周(后半占大头)</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">前半(3-5 天 · 🟡 理解)</div><div class="value">
+      <ul>
+        <li>神经网络基础 / 反向传播(概念)</li>
+        <li>CNN / RNN / LSTM —— 知道是干嘛、什么场景用</li>
+        <li>激活函数 / 损失函数 / 优化器</li>
+      </ul>
+    </div></div>
+    <div class="stage-field"><div class="label">后半(1-2 周 · 🔴 死磕)</div><div class="value">
+      <ul>
+        <li><strong>Self-Attention 机制</strong>(为什么除以 √d_k?)</li>
+        <li><strong>Multi-Head Attention</strong>(每个头学什么?)</li>
+        <li><strong>位置编码</strong>(Sinusoidal / RoPE / ALiBi)</li>
+        <li><strong>Encoder vs Decoder vs Decoder-only</strong></li>
+        <li><strong>KV Cache</strong>(推理加速核心)</li>
+      </ul>
+    </div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么硬核:</strong>整个大模型时代建在 Transformer 上。这块没吃透,后面阶段 08/10/13 全部内容都"浮在上面"。<strong>强制动作:</strong>白纸画出完整架构图,标出每一步张量维度,自己讲一遍——讲不顺的地方就是没懂。</div>
+</div>
+
+<div class="stage-card optional">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 07 · 项目一</h3>
+    <div class="stage-tags"><span class="badge badge-optional">⚪ 跳过</span><span class="badge">--</span></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么跳:</strong>这是早期阶段的入门项目,放简历上没有差异化优势。把时间留给后面阶段 11、17/18/19 的项目。</div>
+</div>
+
+<!-- =========== Phase 3 =========== -->
+<div class="phase-header">
+  <h3>🚀 Phase 3 · 大模型核心战场(预计 6-8 周)</h3>
+  <div class="phase-meta">目标:这是你简历的主战场,**投入最多精力的部分在这里**</div>
+</div>
+
+<div class="stage-card key">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 08 · NLP 与模型训练</h3>
+    <div class="stage-tags"><span class="badge badge-key">🟠 重点</span><span class="badge">1-2 周</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">重点</div><div class="value">
+      <ul>
+        <li>Tokenizer(BPE / WordPiece / SentencePiece)</li>
+        <li>预训练 / SFT / RLHF 流程概念</li>
+        <li>HuggingFace transformers 库的使用</li>
+        <li>数据集构造与 DataLoader</li>
+      </ul>
+    </div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">能说清楚"一个模型从数据到上线的完整链路"</div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么:</strong>面试官超爱问"训练流程",答得有结构 = 加分。也是阶段 13 微调的前置。</div>
+</div>
+
+<div class="stage-card optional">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 09 · 项目二(NLP 智品发布)</h3>
+    <div class="stage-tags"><span class="badge badge-optional">⚪ 速看</span><span class="badge">--</span></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么:</strong>有更亮的项目可选(阶段 11、17-19)。这个扫一下知道做了什么就行。</div>
+</div>
+
+<div class="stage-card core">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 10 · Agent / LangChain / MCP ⭐ 主战场</h3>
+    <div class="stage-tags"><span class="badge badge-core">🔴 核心</span><span class="badge">2-3 周</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">重点</div><div class="value">
+      <ul>
+        <li>LangChain 核心组件:Chains / Tools / Memory / Output Parser</li>
+        <li>Agent 架构:ReAct / Function Calling / Tool Use</li>
+        <li>Prompt 工程的工程化实践</li>
+        <li>MCP(Model Context Protocol)的服务端/客户端实现</li>
+        <li>流式输出 / 异步调用 / 错误恢复</li>
+      </ul>
+    </div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">独立从 0 搭一个能调用多个工具的 Agent,接外部 API,完成多轮对话</div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么是主战场:</strong>"AI 应用开发岗"的招聘 JD 70% 都在问这一块。你的简历项目主标签会是这里。</div>
+</div>
+
+<div class="stage-card key">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 11 · 知识图谱 Neo4j(项目候选 ①)</h3>
+    <div class="stage-tags"><span class="badge badge-key">🟠 重点</span><span class="badge">1-2 周</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">重点</div><div class="value">
+      <ul>
+        <li>Cypher 查询语言基础</li>
+        <li>实体抽取 + 关系抽取(LLM 辅助)</li>
+        <li>GraphRAG 思想</li>
+      </ul>
+    </div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">能完整跑通"文本 → 实体关系 → 入图 → 问答"</div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么:</strong>知识图谱 + LLM 是企业落地的高频组合。完整做完一遍,简历上能写"GraphRAG 实战"——加分。</div>
+</div>
+
+<div class="stage-card concept">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 12 · Coze + Dify</h3>
+    <div class="stage-tags"><span class="badge badge-concept">🟡 理解</span><span class="badge">3-5 天</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">重点</div><div class="value">两个平台的工作流编排方式 / 插件机制</div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">能搭一个简单 bot,知道平台局限性</div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么不深入:</strong>低代码平台是"产品视角",不是"工程视角"。了解 + 演示即可。简历可写"熟悉 Coze/Dify 工作流编排"。</div>
+</div>
+
+<div class="stage-card core">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 13 · LoRA 微调实战 ⭐ 硬门槛</h3>
+    <div class="stage-tags"><span class="badge badge-core">🔴 核心</span><span class="badge">2-3 周</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">重点</div><div class="value">
+      <ul>
+        <li>SFT 全量微调 vs LoRA / QLoRA 的差异与选型</li>
+        <li>peft 库 + trl + transformers 全栈使用</li>
+        <li>DeepSpeed / Unsloth 加速训练</li>
+        <li>数据集构造与质量控制</li>
+        <li>评估指标 + 推理部署</li>
+      </ul>
+    </div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">能独立用 LoRA 微调 Qwen/Llama 类模型,完整走完训练→评估→推理</div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么硬门槛:</strong>"做过微调"是简历从"会调 API"跨到"懂模型"的关键分水岭。面试给薪资是看这个的。</div>
+</div>
+
+<div class="stage-card concept">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 14 · 智能体强化学习</h3>
+    <div class="stage-tags"><span class="badge badge-concept">🟡 理解</span><span class="badge">5-7 天</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">重点</div><div class="value">RLHF / PPO / DPO 的思想 + 应用场景</div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">面试能讲清楚"为什么需要 RLHF",知道 DPO 是 RLHF 的简化替代</div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么不深入:</strong>除非你目标是算法岗,否则 RL 实操在应用岗几乎用不到。但概念面试会问。</div>
+</div>
+
+<div class="stage-card concept">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 15 · 多模态大模型</h3>
+    <div class="stage-tags"><span class="badge badge-concept">🟡 理解</span><span class="badge">5-7 天</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">重点</div><div class="value">CLIP / BLIP / LLaVA 架构思路 · 视觉 token 化</div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">知道 VLM 怎么把图变成 token 喂给 LLM 即可</div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么:</strong>多模态正在变热,但当前主流岗位还是文本为主。了解概念,有时间可以做个小 demo。</div>
+</div>
+
+<div class="stage-card core">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 16 · LangGraph ⭐ 高级编排</h3>
+    <div class="stage-tags"><span class="badge badge-core">🔴 核心</span><span class="badge">1-2 周</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">重点</div><div class="value">
+      <ul>
+        <li>状态机思想下的 Agent 编排</li>
+        <li>多智能体协作 / 条件路由 / 循环控制</li>
+        <li>持久化 + checkpointing</li>
+      </ul>
+    </div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">能用 LangGraph 实现复杂业务流(对比简单 LangChain Agent 的优势能说清)</div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么:</strong>2026 年最新的 Agent 编排方案,简历上写"用 LangGraph 实现多智能体"比"用 LangChain Agent"高一档。</div>
+</div>
+
+<!-- =========== Phase 4 =========== -->
+<div class="phase-header">
+  <h3>💼 Phase 4 · 项目作品集 + 面试冲刺(预计 4-6 周)</h3>
+  <div class="phase-meta">目标:把学过的串起来,产出 2-3 个能讲透的项目 + 复盘面经</div>
+</div>
+
+<div class="stage-card key">
+  <div class="stage-header">
+    <h3 class="stage-title">阶段 17/18/19 · Agent 项目(挑 1 个)</h3>
+    <div class="stage-tags"><span class="badge badge-key">🟠 重点</span><span class="badge">1-2 周</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">三选一</div><div class="value">
+      <ul>
+        <li><strong>阶段 17 · 点餐 Agent</strong> —— 业务场景清晰,容易讲</li>
+        <li><strong>阶段 18 · 多智能体 ITS</strong> —— 技术含量最高,推荐 ⭐</li>
+        <li><strong>阶段 19 · 智能体问数</strong> —— Text2SQL 类,需求方向热门</li>
+      </ul>
+    </div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">不仅跑通,要能讲清架构 / 难点 / 自己的设计选择</div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>推荐阶段 18:</strong>多智能体 + LangGraph 是当前最热的组合,简历区分度最高。结合你 iOS 11 年的工程经验,讲架构会很有说服力。</div>
+</div>
+
+<div class="stage-card core">
+  <div class="stage-header">
+    <h3 class="stage-title">附送 01 · RAG 与项目实战 ⭐</h3>
+    <div class="stage-tags"><span class="badge badge-core">🔴 核心</span><span class="badge">1-2 周</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">重点</div><div class="value">
+      <ul>
+        <li>文档切分策略 / Embedding 模型选型</li>
+        <li>向量库(Chroma / Milvus / Faiss)选型</li>
+        <li>Rerank 机制 · 混合检索</li>
+        <li>GraphRAG / HyDE / Self-RAG 等进阶</li>
+      </ul>
+    </div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">能搭企业级 RAG,讲清每个组件的选型理由</div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么必学:</strong>"RAG"几乎是 2026 年 AI 应用岗的标配技能,面试必问。强烈建议这是你简历上的第二个核心项目。</div>
+</div>
+
+<div class="stage-card key">
+  <div class="stage-header">
+    <h3 class="stage-title">附送 02 · 面试专题与企业开发</h3>
+    <div class="stage-tags"><span class="badge badge-key">🟠 重点</span><span class="badge">沿途穿插 + 1 周冲刺</span></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage-field"><div class="label">建议节奏</div><div class="value">
+      <ul>
+        <li>每学完一个阶段,扫一下对应面试题</li>
+        <li>面试前 1 周集中过一遍 + 项目讲解演练</li>
+      </ul>
+    </div></div>
+    <div class="stage-field"><div class="label">掌握程度</div><div class="value">能 5-10 分钟讲透自己的项目 + 高频题答得有结构</div></div>
+  </div>
+  <div class="stage-why">🎯 <strong>为什么:</strong>转行最后一公里就是面试。学完不练讲,等于白学。</div>
+</div>
+
+<div class="stage-card optional">
+  <div class="stage-header">
+    <h3 class="stage-title">附送 05 · AI 智能客服项目(可选第三项目)</h3>
+    <div class="stage-tags"><span class="badge badge-optional">⚪ 选学</span><span class="badge">--</span></div>
+  </div>
+  <div class="stage-why">🎯 <strong>选做:</strong>如果时间还有富裕,作为第三个项目能让简历更丰满。但优先保证前面 2 个项目质量。</div>
+</div>
+
+<!-- =========== Timeline =========== -->
+<h2 class="section-title">📅 4-5 个月时间线建议</h2>
+<div class="timeline-box">
+  <h3>按月分配(假设 2026-06 开始,2026-11 找工作)</h3>
+  <div class="timeline-row"><div class="month">第 1 个月</div><div>速通 Python / 算法 / SQL + Numpy/Pandas + 机器学习概念</div><div class="duration">基础 + ML</div></div>
+  <div class="timeline-row"><div class="month">第 2 个月</div><div><strong>死磕 Transformer</strong> + NLP 训练 + 启动 LangChain</div><div class="duration">硬骨头</div></div>
+  <div class="timeline-row"><div class="month">第 3 个月</div><div>完成 LangChain/MCP + 知识图谱 + 开始 LoRA 微调</div><div class="duration">核心战场</div></div>
+  <div class="timeline-row"><div class="month">第 4 个月</div><div>完成 LoRA + LangGraph + RAG 实战 + 启动主项目</div><div class="duration">核心 + 项目</div></div>
+  <div class="timeline-row"><div class="month">第 5 个月</div><div>完成 2 个项目 + 面试冲刺 + 海投青岛 + 远程岗位</div><div class="duration">面试季</div></div>
+</div>
+
+<!-- =========== Strategy =========== -->
+<div class="strategy-box">
+  <h3>🧭 五条不要忘的原则</h3>
+  <ol>
+    <li><strong>"看完 ≠ 学会",项目大于看课。</strong>简历上能 demo 的 2 个项目,远比看完所有视频更值钱。</li>
+    <li><strong>Transformer 是分水岭。</strong>这一关跨过去,后面一马平川;跨不过去,后面所有内容都浮着。值得花 2 周。</li>
+    <li><strong>不要陷入"补基础"陷阱。</strong>遇到不会的概念问 AI,不要回过头啃整本《深度学习》。前进的速度比知识的完整性更重要。</li>
+    <li><strong>iOS 11 年是优势不是包袱。</strong>讲项目的时候多带工程视角(架构 / 可靠性 / 扩展性),这是应届生讲不出来的差异化。</li>
+    <li><strong>青岛市场 + 远程机会一起看。</strong>青岛本地 AI 岗位密度有限,远程岗位(北京/上海/杭州团队招远程)能极大扩大选择面。</li>
+  </ol>
+</div>
+
+<div style="text-align: center; margin-top: 50px; padding-top: 24px; border-top: 1px solid #e5e7eb; color: #9ca3af; font-size: 13px;">
+  📝 这份路线基于你的个人画像定制 · 学到一半发现策略需要调整就调整 · 别让计划绑架行动
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>AI 大模型课程 · 应用层路径(纯视频)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+    background: #0d1117; color: #c9d1d9; line-height: 1.6;
+    padding: 32px 16px 80px;
+}
+.container { max-width: 1200px; margin: 0 auto; }
+
+.hero {
+    background: linear-gradient(135deg, #0f766e 0%, #1e3a8a 100%);
+    border-radius: 16px; padding: 36px 32px; margin-bottom: 24px;
+    color: #fff; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+.hero h1 { font-size: 28px; margin-bottom: 6px; letter-spacing: 1px; }
+.hero .subtitle { opacity: 0.85; font-size: 14px; margin-bottom: 24px; }
+.hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
+.hero-stat { background: rgba(255,255,255,0.12); border-radius: 10px; padding: 16px; backdrop-filter: blur(10px); }
+.hero-stat .num { font-size: 26px; font-weight: 700; line-height: 1.1; }
+.hero-stat.big .num { font-size: 34px; color: #fbbf24; }
+.hero-stat.save .num { color: #34d399; }
+.hero-stat .label { font-size: 12px; opacity: 0.85; margin-top: 4px; }
+
+/* Speed Table */
+.speed-card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    padding: 24px 28px; margin-bottom: 24px;
+}
+.speed-card h2 { font-size: 18px; color: #58a6ff; margin-bottom: 14px; }
+.speed-card p { font-size: 13px; color: #8b949e; margin-bottom: 14px; }
+.speed-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.speed-table th { text-align: left; padding: 10px 12px; background: #0d1117; color: #8b949e; font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+.speed-table td { padding: 12px; border-bottom: 1px solid #21262d; color: #f0f6fc; font-variant-numeric: tabular-nums; }
+.speed-table tr:hover td { background: #0d1117; }
+.speed-table .col-app { color: #fbbf24; font-weight: 600; }
+.speed-table th.col-app-h { color: #fbbf24; }
+
+/* Strategy */
+.strategy {
+    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    padding: 22px 26px; margin-bottom: 24px;
+}
+.strategy h2 { font-size: 17px; color: #58a6ff; margin-bottom: 10px; }
+.strategy p { font-size: 13px; color: #8b949e; margin-bottom: 6px; }
+.strategy .key { color: #fbbf24; font-weight: 600; }
+.strategy .star { color: #f85149; }
+
+/* TOC */
+.toc {
+    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    padding: 20px; margin-bottom: 32px;
+}
+.toc h3 { font-size: 13px; color: #8b949e; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+.toc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 6px; }
+.toc-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px; border-radius: 6px;
+    color: #c9d1d9; text-decoration: none; font-size: 13px;
+    border-left: 3px solid #30363d;
+    transition: background 0.15s;
+}
+.toc-item:hover { background: #21262d; }
+.toc-full { border-left-color: #34d399; }
+.toc-selective { border-left-color: #fbbf24; }
+.toc-skip { border-left-color: #6e7681; opacity: 0.55; }
+.toc-num { color: #6e7681; font-size: 11px; font-variant-numeric: tabular-nums; }
+.toc-name { flex: 1; }
+.toc-time { color: #8b949e; font-size: 11px; font-variant-numeric: tabular-nums; }
+
+.legend {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    padding: 14px 20px; background: #161b22;
+    border: 1px solid #30363d; border-radius: 10px;
+    margin-bottom: 24px; font-size: 12px;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; color: #8b949e; }
+.legend-dot { width: 14px; height: 4px; border-radius: 2px; }
+
+.section-title {
+    font-size: 20px; color: #f0f6fc;
+    margin: 40px 0 20px; padding-bottom: 10px;
+    border-bottom: 1px solid #30363d;
+}
+
+.stage {
+    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    padding: 22px 26px; margin-bottom: 18px;
+}
+.stage-full { border-left: 4px solid #34d399; }
+.stage-selective { border-left: 4px solid #fbbf24; }
+.stage-skip { border-left: 4px solid #6e7681; opacity: 0.7; }
+
+.stage-head { margin-bottom: 14px; }
+.stage-title { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.stage-idx { color: #6e7681; font-size: 14px; font-variant-numeric: tabular-nums; }
+.stage-short { font-size: 19px; font-weight: 600; color: #f0f6fc; }
+.stage-fullname { font-size: 12px; color: #6e7681; margin-top: 4px; }
+
+.badge { font-size: 11px; padding: 3px 9px; border-radius: 10px; font-weight: 600; }
+.badge-full { background: rgba(52,211,153,0.18); color: #34d399; }
+.badge-selective { background: rgba(251,191,36,0.18); color: #fbbf24; }
+.badge-skip { background: rgba(110,118,129,0.25); color: #8b949e; }
+.badge-saved { background: rgba(248,81,73,0.15); color: #f85149; }
+
+.stage-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.stat { background: #0d1117; border-radius: 8px; padding: 10px 8px; text-align: center; }
+.stat.highlight { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.25); }
+.stat-num { font-size: 16px; font-weight: 600; color: #f0f6fc; font-variant-numeric: tabular-nums; }
+.stat.highlight .stat-num { color: #fbbf24; }
+.stat-label { font-size: 11px; color: #8b949e; margin-top: 2px; }
+
+.dual-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+.dual-label { font-size: 11px; color: #8b949e; width: 50px; }
+.dual-track { flex: 1; height: 8px; background: #21262d; border-radius: 4px; overflow: hidden; }
+.dual-fill { height: 100%; border-radius: 4px; }
+.dual-full { background: #6e7681; }
+.dual-app { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+
+.stage-note { font-size: 13px; color: #c9d1d9; padding: 10px 14px; background: #0d1117; border-radius: 8px; border-left: 3px solid #fbbf24; margin: 14px 0 10px; }
+
+.stage-days summary { cursor: pointer; font-size: 12px; color: #58a6ff; padding: 4px 0; user-select: none; }
+.stage-days summary:hover { color: #79c0ff; }
+
+.day-table { margin-top: 10px; font-size: 13px; }
+.day-row {
+    display: grid;
+    grid-template-columns: 80px 70px 1fr 80px;
+    gap: 12px; align-items: center;
+    padding: 6px 10px; border-radius: 6px;
+}
+.day-row:hover:not(.day-head) { background: #0d1117; }
+.day-head { color: #6e7681; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; padding-bottom: 4px; border-bottom: 1px solid #30363d; }
+.day-name { color: #f0f6fc; font-weight: 500; }
+.day-count { color: #8b949e; font-variant-numeric: tabular-nums; }
+.day-bar { height: 6px; background: #21262d; border-radius: 3px; overflow: hidden; }
+.day-bar-fill { height: 100%; background: linear-gradient(90deg, #3fb950, #58a6ff); border-radius: 3px; }
+.day-dur { color: #f0f6fc; font-variant-numeric: tabular-nums; }
+
+footer { text-align: center; color: #6e7681; font-size: 12px; margin-top: 60px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+    <h1>🎯 应用层 Agent 开发路径 · 纯视频时长</h1>
+    <div class="subtitle">目标:大模型应用开发 / Agent 工程师 · 不做算法 / 不微调底层 / 不做研究</div>
+    <div class="hero-stats">
+        <div class="hero-stat"><div class="num">535 h</div><div class="label">完整全部看完</div></div>
+        <div class="hero-stat big"><div class="num">349 h</div><div class="label">应用层只看</div></div>
+        <div class="hero-stat save"><div class="num">−185 h</div><div class="label">省下时间</div></div>
+        <div class="hero-stat"><div class="num">116 天</div><div class="label">3h/天 · 1.0x</div></div>
+        <div class="hero-stat big"><div class="num">77 天</div><div class="label">3h/天 · 1.5x ⭐</div></div>
+    </div>
+</div>
+
+<div class="speed-card">
+    <h2>⏱️ 不同播放速度 · 完成天数对比</h2>
+    <p>3 小时/天,纯看视频(不算敲代码/做笔记)。推荐 1.5x 速度 + 听不懂时回放,这是大多数人最高效的节奏。</p>
+    <table class="speed-table">
+        <thead>
+            <tr>
+                <th>速度</th>
+                <th class="col-app-h">应用层 · 天数</th>
+                <th class="col-app-h">应用层 · 月数</th>
+                <th>完整 · 天数</th>
+                <th>完整 · 月数</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>1.0x</td><td>116 天</td><td>3.9 月</td><td>178 天</td><td>6.0 月</td></tr><tr><td>1.25x</td><td>93 天</td><td>3.1 月</td><td>142 天</td><td>4.8 月</td></tr><tr><td>1.5x</td><td>77 天</td><td>2.6 月</td><td>119 天</td><td>4.0 月</td></tr><tr><td>2.0x</td><td>58 天</td><td>1.9 月</td><td>89 天</td><td>3.0 月</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="strategy">
+    <h2>📊 应用层路径策略</h2>
+    <p>砍掉 <span class="key">算法/RL/手撕 CNN-RNN</span>,加码 <span class="key">Agent / LangChain / LangGraph / 项目</span>。</p>
+    <p>带 <span class="star">⭐</span> 的是简历主菜和面试核心,一分都不能省。</p>
+    <p>纯视频 <span class="key">349 小时</span>,按 1.5x + 1.5h 实操配比,真实完成时间约 <span class="key">6-7 个月</span>。</p>
+</div>
+
+<div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div>全看 — 必修</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#fbbf24"></div>选看 — 挑重点</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#6e7681"></div>跳过 — 应用层用不到</div>
+    <div class="legend-item">⭐ 简历/面试核心</div>
+</div>
+
+<div class="toc">
+    <h3>主线 19 阶段(数字 = 应用层小时数)</h3>
+    <div class="toc-grid"><a href="#stage-1" class="toc-item toc-selective"><span class="toc-num">#01</span><span class="toc-name">Python 基础</span><span class="toc-time">10h</span></a><a href="#stage-2" class="toc-item toc-skip"><span class="toc-num">#02</span><span class="toc-name">算法与数据结构</span><span class="toc-time">0h</span></a><a href="#stage-3" class="toc-item toc-selective"><span class="toc-num">#03</span><span class="toc-name">MySQL + Linux</span><span class="toc-time">5h</span></a><a href="#stage-4" class="toc-item toc-full"><span class="toc-num">#04</span><span class="toc-name">Numpy / Pandas</span><span class="toc-time">24h</span></a><a href="#stage-5" class="toc-item toc-selective"><span class="toc-num">#05</span><span class="toc-name">机器学习</span><span class="toc-time">18h</span></a><a href="#stage-6" class="toc-item toc-selective"><span class="toc-num">#06</span><span class="toc-name">深度学习</span><span class="toc-time">25h</span></a><a href="#stage-7" class="toc-item toc-full"><span class="toc-num">#07</span><span class="toc-name">项目一</span><span class="toc-time">14h</span></a><a href="#stage-8" class="toc-item toc-full"><span class="toc-num">#08</span><span class="toc-name">NLP + Transformer</span><span class="toc-time">45h</span></a><a href="#stage-9" class="toc-item toc-full"><span class="toc-num">#09</span><span class="toc-name">项目二 NLP</span><span class="toc-time">9h</span></a><a href="#stage-10" class="toc-item toc-full"><span class="toc-num">#10</span><span class="toc-name">Agent / LangChain / MCP</span><span class="toc-time">14h</span></a><a href="#stage-11" class="toc-item toc-full"><span class="toc-num">#11</span><span class="toc-name">知识图谱 Neo4j</span><span class="toc-time">23h</span></a><a href="#stage-12" class="toc-item toc-selective"><span class="toc-num">#12</span><span class="toc-name">Coze + Dify</span><span class="toc-time">4h</span></a><a href="#stage-13" class="toc-item toc-selective"><span class="toc-num">#13</span><span class="toc-name">LoRA 微调</span><span class="toc-time">10h</span></a><a href="#stage-14" class="toc-item toc-skip"><span class="toc-num">#14</span><span class="toc-name">强化学习</span><span class="toc-time">0h</span></a><a href="#stage-15" class="toc-item toc-full"><span class="toc-num">#15</span><span class="toc-name">多模态</span><span class="toc-time">17h</span></a><a href="#stage-16" class="toc-item toc-full"><span class="toc-num">#16</span><span class="toc-name">LangGraph</span><span class="toc-time">12h</span></a><a href="#stage-17" class="toc-item toc-full"><span class="toc-num">#17</span><span class="toc-name">项目四:点餐 Agent</span><span class="toc-time">15h</span></a><a href="#stage-18" class="toc-item toc-full"><span class="toc-num">#18</span><span class="toc-name">项目五:多智能体 ITS</span><span class="toc-time">39h</span></a><a href="#stage-19" class="toc-item toc-full"><span class="toc-num">#19</span><span class="toc-name">项目六:智能问数</span><span class="toc-time">17h</span></a></div>
+    <h3 style="margin-top:20px;">额外附送 5 个项目</h3>
+    <div class="toc-grid"><a href="#bonus-1" class="toc-item toc-full"><span class="toc-num">B1</span><span class="toc-name">RAG 实战</span><span class="toc-time">24h</span></a><a href="#bonus-2" class="toc-item toc-full"><span class="toc-num">B2</span><span class="toc-name">面试专题</span><span class="toc-time">12h</span></a><a href="#bonus-3" class="toc-item toc-skip"><span class="toc-num">B3</span><span class="toc-name">自主案例</span><span class="toc-time">0h</span></a><a href="#bonus-4" class="toc-item toc-skip"><span class="toc-num">B4</span><span class="toc-name">阶段测试</span><span class="toc-time">0h</span></a><a href="#bonus-5" class="toc-item toc-full"><span class="toc-num">B5</span><span class="toc-name">AI 客服项目</span><span class="toc-time">13h</span></a></div>
+</div>
+
+<h2 class="section-title">📚 主线 19 阶段</h2>
+
+    <section class="stage stage-selective" id="stage-1">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#01</span>
+                <span class="stage-short">Python 基础</span>
+                <span class="badge badge-selective">选看</span>
+                <span class="badge badge-saved">省 38.2h</span>
+            </div>
+            <div class="stage-fullname">阶段01：大模型人工智能语言（25年7月开班）</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">214</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">48h 14m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">10.0h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">6.7h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">5.0h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:93.46545430068319%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:19.376590286551888%"></div></div>
+        </div>
+        <div class="stage-note">💡 iOS 老兵跳大半 — 只挑 OOP / 装饰器 / 异步 / 文件 IO 看;变量/循环/列表跳过</div>
+        <details class="stage-days">
+            <summary>每日明细 (13 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">22 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">4h 13m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">18 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:94.35133290911753%"></div></div>
+            <div class="day-dur">3h 59m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">16 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:91.28239126181188%"></div></div>
+            <div class="day-dur">3h 51m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:98.47686790610032%"></div></div>
+            <div class="day-dur">4h 09m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day05</div>
+            <div class="day-count">17 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:90.60058765400431%"></div></div>
+            <div class="day-dur">3h 49m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day06</div>
+            <div class="day-count">19 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:88.63977006845005%"></div></div>
+            <div class="day-dur">3h 44m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day07</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:85.84102430033163%"></div></div>
+            <div class="day-dur">3h 37m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day08</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:78.85770847823265%"></div></div>
+            <div class="day-dur">3h 19m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day09</div>
+            <div class="day-count">20 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:90.1647634503544%"></div></div>
+            <div class="day-dur">3h 48m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day10</div>
+            <div class="day-count">15 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:82.99682495835943%"></div></div>
+            <div class="day-dur">3h 30m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day11</div>
+            <div class="day-count">16 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:91.11446099105366%"></div></div>
+            <div class="day-dur">3h 50m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day12</div>
+            <div class="day-count">17 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:93.16967810569548%"></div></div>
+            <div class="day-dur">3h 56m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day13</div>
+            <div class="day-count">12 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:56.60268900212273%"></div></div>
+            <div class="day-dur">2h 23m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-skip" id="stage-2">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#02</span>
+                <span class="stage-short">算法与数据结构</span>
+                <span class="badge badge-skip">跳过</span>
+                <span class="badge badge-saved">省 30.2h</span>
+            </div>
+            <div class="stage-fullname">阶段02：算法与数据结构</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">118</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">30h 11m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">0.0h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">0.0h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">0.0h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:58.50252263290703%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:0.0%"></div></div>
+        </div>
+        <div class="stage-note">💡 应用层岗位用不到;找工作前 1-2 个月单独刷 LeetCode 高频题即可</div>
+        <details class="stage-days">
+            <summary>每日明细 (5 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">19 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:34.77886099862359%"></div></div>
+            <div class="day-dur">4h 39m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">17 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:27.894253327187368%"></div></div>
+            <div class="day-dur">3h 44m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">18 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:30.510128441710926%"></div></div>
+            <div class="day-dur">4h 05m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:32.34692697165958%"></div></div>
+            <div class="day-dur">4h 19m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day05</div>
+            <div class="day-count">50 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">13h 23m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-selective" id="stage-3">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#03</span>
+                <span class="stage-short">MySQL + Linux</span>
+                <span class="badge badge-selective">选看</span>
+                <span class="badge badge-saved">省 20.4h</span>
+            </div>
+            <div class="stage-fullname">阶段03：MySQL数据库与系统</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">116</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">25h 26m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">5.0h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">3.3h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">2.5h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:49.28507002177638%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:9.688295143275944%"></div></div>
+        </div>
+        <div class="stage-note">💡 iOS 老兵基本会;只挑 Linux 权限/服务/vim 和 SQL Join 看</div>
+        <details class="stage-days">
+            <summary>每日明细 (4 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">35 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:93.90331291359124%"></div></div>
+            <div class="day-dur">7h 44m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">42 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">8h 14m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">21 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:57.64290173027325%"></div></div>
+            <div class="day-dur">4h 45m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">18 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:56.901819943747434%"></div></div>
+            <div class="day-dur">4h 41m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-full" id="stage-4">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#04</span>
+                <span class="stage-short">Numpy / Pandas</span>
+                <span class="badge badge-full">全看</span>
+                
+            </div>
+            <div class="stage-fullname">阶段04：数据分析（Numpy、Pandas）</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">106</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">23h 44m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">23.7h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">15.8h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">11.8h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:46.01327569859848%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:45.92251897912798%"></div></div>
+        </div>
+        <div class="stage-note">💡 全看 — 后面所有阶段都在用张量和 DataFrame</div>
+        <details class="stage-days">
+            <summary>每日明细 (6 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">16 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:82.73440487909227%"></div></div>
+            <div class="day-dur">3h 28m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">15 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:92.23982820202006%"></div></div>
+            <div class="day-dur">3h 52m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">16 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:97.24913419051526%"></div></div>
+            <div class="day-dur">4h 05m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">19 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">4h 11m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day05</div>
+            <div class="day-count">22 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:95.67973006349558%"></div></div>
+            <div class="day-dur">4h 01m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day06</div>
+            <div class="day-count">18 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:97.56431014176138%"></div></div>
+            <div class="day-dur">4h 05m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-selective" id="stage-5">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#05</span>
+                <span class="stage-short">机器学习</span>
+                <span class="badge badge-selective">选看</span>
+                <span class="badge badge-saved">省 18.6h</span>
+            </div>
+            <div class="stage-fullname">阶段05：机器学习</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">137</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">36h 33m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">18.0h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">12.0h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">9.0h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:70.83101975948247%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:34.8778625157934%"></div></div>
+        </div>
+        <div class="stage-note">💡 只看 Day1-Day4(数学+评估+正则化),Day5-Day9 各算法快进 — 应用层用不到手撕</div>
+        <details class="stage-days">
+            <summary>每日明细 (9 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">16 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">5h 15m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:80.66339665797933%"></div></div>
+            <div class="day-dur">4h 14m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">15 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:78.42440017415198%"></div></div>
+            <div class="day-dur">4h 07m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">17 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:86.29760108765196%"></div></div>
+            <div class="day-dur">4h 32m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day05</div>
+            <div class="day-count">15 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:71.83109688744291%"></div></div>
+            <div class="day-dur">3h 46m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day06</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:82.40354252056721%"></div></div>
+            <div class="day-dur">4h 19m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day07</div>
+            <div class="day-count">17 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:77.78873699177555%"></div></div>
+            <div class="day-dur">4h 05m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day08</div>
+            <div class="day-count">25 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:88.13575631954869%"></div></div>
+            <div class="day-dur">4h 37m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day09</div>
+            <div class="day-count">4 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:29.868079188103856%"></div></div>
+            <div class="day-dur">1h 34m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-selective" id="stage-6">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#06</span>
+                <span class="stage-short">深度学习</span>
+                <span class="badge badge-selective">选看</span>
+                <span class="badge badge-saved">省 26.6h</span>
+            </div>
+            <div class="stage-fullname">阶段06：深度学习（2025年9月开始）</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">191</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">51h 36m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">25.0h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">16.7h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">12.5h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:100.0%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:48.44147571637973%"></div></div>
+        </div>
+        <div class="stage-note">💡 看 PyTorch 基础 + 反向传播概念 + attention 直觉;跳过手撕 CNN/RNN 细节</div>
+        <details class="stage-days">
+            <summary>每日明细 (13 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">13 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:67.6791153052197%"></div></div>
+            <div class="day-dur">3h 11m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">13 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:81.8773223237983%"></div></div>
+            <div class="day-dur">3h 51m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:84.8847065762312%"></div></div>
+            <div class="day-dur">3h 59m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">12 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:86.13446770864051%"></div></div>
+            <div class="day-dur">4h 03m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day05</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:89.09998230610438%"></div></div>
+            <div class="day-dur">4h 11m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day06</div>
+            <div class="day-count">23 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:88.58448245355353%"></div></div>
+            <div class="day-dur">4h 10m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day07</div>
+            <div class="day-count">20 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">4h 42m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day08</div>
+            <div class="day-count">19 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:97.84901209082868%"></div></div>
+            <div class="day-dur">4h 36m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day09</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:92.59746977292833%"></div></div>
+            <div class="day-dur">4h 21m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day10</div>
+            <div class="day-count">16 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:93.75936891772339%"></div></div>
+            <div class="day-dur">4h 24m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day11</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:90.27308168681806%"></div></div>
+            <div class="day-dur">4h 15m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day12</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:85.30404600412858%"></div></div>
+            <div class="day-dur">4h 01m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day13</div>
+            <div class="day-count">5 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:37.74698908876437%"></div></div>
+            <div class="day-dur">1h 46m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-full" id="stage-7">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#07</span>
+                <span class="stage-short">项目一</span>
+                <span class="badge badge-full">全看</span>
+                
+            </div>
+            <div class="stage-fullname">阶段07：项目一</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">54</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">14h 09m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">14.2h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">9.4h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">7.1h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:27.436602729982873%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:27.417875255470925%"></div></div>
+        </div>
+        <div class="stage-note">💡 全看 — 把前面 ML/DL 串起来</div>
+        <details class="stage-days">
+            <summary>每日明细 (5 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">7 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:43.06972354360376%"></div></div>
+            <div class="day-dur">1h 28m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">3h 26m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">11 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:89.99034928257396%"></div></div>
+            <div class="day-dur">3h 05m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">12 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:96.45786579545343%"></div></div>
+            <div class="day-dur">3h 18m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day05</div>
+            <div class="day-count">10 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:82.52941270142405%"></div></div>
+            <div class="day-dur">2h 50m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-full" id="stage-8">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#08</span>
+                <span class="stage-short">⭐ NLP + Transformer</span>
+                <span class="badge badge-full">全看</span>
+                
+            </div>
+            <div class="stage-fullname">阶段08：NLP与模型训练（25年10月开始）</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">165</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">45h 04m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">45.1h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">30.0h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">22.5h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:87.32412151572171%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:87.33029242148937%"></div></div>
+        </div>
+        <div class="stage-note">💡 ⭐ 必看不打折 — Transformer 是 Agent 思维模型的根</div>
+        <details class="stage-days">
+            <summary>每日明细 (11 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">15 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:79.78389433483574%"></div></div>
+            <div class="day-dur">3h 59m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">16 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:76.5758580436968%"></div></div>
+            <div class="day-dur">3h 50m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">10 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:72.54002871213025%"></div></div>
+            <div class="day-dur">3h 38m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">10 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:75.58881133011778%"></div></div>
+            <div class="day-dur">3h 47m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day05</div>
+            <div class="day-count">19 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:86.02604609101519%"></div></div>
+            <div class="day-dur">4h 18m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day06</div>
+            <div class="day-count">17 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:89.86174225925059%"></div></div>
+            <div class="day-dur">4h 30m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day07</div>
+            <div class="day-count">12 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:75.23280154321739%"></div></div>
+            <div class="day-dur">3h 46m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day08</div>
+            <div class="day-count">15 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:82.21703360519228%"></div></div>
+            <div class="day-dur">4h 07m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day09</div>
+            <div class="day-count">18 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:86.82344013996621%"></div></div>
+            <div class="day-dur">4h 20m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day10</div>
+            <div class="day-count">18 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">5h 00m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day11</div>
+            <div class="day-count">15 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:75.01262789188984%"></div></div>
+            <div class="day-dur">3h 45m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-full" id="stage-9">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#09</span>
+                <span class="stage-short">项目二 NLP</span>
+                <span class="badge badge-full">全看</span>
+                
+            </div>
+            <div class="stage-fullname">阶段09：项目二：NLP智品发布</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">28</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">9h 16m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">9.3h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">6.2h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">4.6h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:17.9745427342679%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:17.962099195633602%"></div></div>
+        </div>
+        <div class="stage-note">💡 全看 — NLP 实战收尾</div>
+        <details class="stage-days">
+            <summary>每日明细 (2 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">13 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:98.2056855479636%"></div></div>
+            <div class="day-dur">4h 35m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">15 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">4h 40m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-full" id="stage-10">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#10</span>
+                <span class="stage-short">⭐ Agent / LangChain / MCP</span>
+                <span class="badge badge-full">全看</span>
+                
+            </div>
+            <div class="stage-fullname">阶段10：Agent、LangChain、MCP</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">54</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">14h 05m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">14.1h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">9.4h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">7.0h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:27.29092037415205%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:27.282239123465065%"></div></div>
+        </div>
+        <div class="stage-note">💡 ⭐ 你的主战场,全看 + 自己扩展</div>
+        <details class="stage-days">
+            <summary>每日明细 (4 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">11 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">3h 46m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">15 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:80.66740791846318%"></div></div>
+            <div class="day-dur">3h 02m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">11 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:95.3828614130869%"></div></div>
+            <div class="day-dur">3h 35m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">17 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:97.33068350175712%"></div></div>
+            <div class="day-dur">3h 40m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-full" id="stage-11">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#11</span>
+                <span class="stage-short">知识图谱 Neo4j</span>
+                <span class="badge badge-full">全看</span>
+                
+            </div>
+            <div class="stage-fullname">阶段11：项目三：图谱 Neo4j（25年11月）</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">76</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">23h 21m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">23.4h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">15.6h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">11.7h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:45.24439106648333%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:45.24433831909867%"></div></div>
+        </div>
+        <div class="stage-note">💡 RAG 进阶,简历可写</div>
+        <details class="stage-days">
+            <summary>每日明细 (5 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">20 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:86.01846782078127%"></div></div>
+            <div class="day-dur">4h 23m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:86.01462212594143%"></div></div>
+            <div class="day-dur">4h 23m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">13 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:88.07675223618722%"></div></div>
+            <div class="day-dur">4h 29m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">18 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:97.13129659097373%"></div></div>
+            <div class="day-dur">4h 57m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day05</div>
+            <div class="day-count">11 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">5h 06m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-selective" id="stage-12">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#12</span>
+                <span class="stage-short">Coze + Dify</span>
+                <span class="badge badge-selective">选看</span>
+                <span class="badge badge-saved">省 10.6h</span>
+            </div>
+            <div class="stage-fullname">阶段12：智能体 Coze + Dify</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">72</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">14h 34m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">4.0h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">2.7h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">2.0h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:28.23448120003013%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:7.750636114620756%"></div></div>
+        </div>
+        <div class="stage-note">💡 扫一遍知道有这俩工具就行,别陷进低代码</div>
+        <details class="stage-days">
+            <summary>每日明细 (5 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">16 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">4h 24m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">11 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:85.19784860354656%"></div></div>
+            <div class="day-dur">3h 45m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">11 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:70.62393455303703%"></div></div>
+            <div class="day-dur">3h 07m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">18 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:72.15473539151645%"></div></div>
+            <div class="day-dur">3h 11m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">其他散文件</div>
+            <div class="day-count">16 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:2.186126444735854%"></div></div>
+            <div class="day-dur">0h 05m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-selective" id="stage-13">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#13</span>
+                <span class="stage-short">LoRA 微调</span>
+                <span class="badge badge-selective">选看</span>
+                <span class="badge badge-saved">省 11.6h</span>
+            </div>
+            <div class="stage-fullname">阶段13：大模型微调、LoRA微调实战</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">95</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">21h 34m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">10.0h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">6.7h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">5.0h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:41.798809181502584%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:19.376590286551888%"></div></div>
+        </div>
+        <div class="stage-note">💡 看一遍概念 — 知道何时选微调而不是 RAG / Prompt;不深做</div>
+        <details class="stage-days">
+            <summary>每日明细 (6 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">21 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:86.33702152258788%"></div></div>
+            <div class="day-dur">3h 43m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">16 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:68.0873951567125%"></div></div>
+            <div class="day-dur">2h 56m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">16 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:79.45924261274811%"></div></div>
+            <div class="day-dur">3h 25m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">15 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">4h 18m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day05</div>
+            <div class="day-count">12 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:72.59955451142517%"></div></div>
+            <div class="day-dur">3h 07m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day06</div>
+            <div class="day-count">15 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:93.66104896291174%"></div></div>
+            <div class="day-dur">4h 02m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-skip" id="stage-14">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#14</span>
+                <span class="stage-short">强化学习</span>
+                <span class="badge badge-skip">跳过</span>
+                <span class="badge badge-saved">省 26.0h</span>
+            </div>
+            <div class="stage-fullname">阶段14：智能体强化学习（25年12月）</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">44</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">26h 00m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">0.0h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">0.0h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">0.0h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:50.38277539105431%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:0.0%"></div></div>
+        </div>
+        <div class="stage-note">💡 应用层不做 RLHF,完全跳过</div>
+        <details class="stage-days">
+            <summary>每日明细 (8 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">8 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">4h 07m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">5 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:77.55013926021734%"></div></div>
+            <div class="day-dur">3h 12m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">6 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:78.91772341994094%"></div></div>
+            <div class="day-dur">3h 15m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">6 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:65.95250773977985%"></div></div>
+            <div class="day-dur">2h 43m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day05</div>
+            <div class="day-count">5 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:83.87749754762939%"></div></div>
+            <div class="day-dur">3h 27m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day06</div>
+            <div class="day-count">6 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:89.3816892082108%"></div></div>
+            <div class="day-dur">3h 41m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day07</div>
+            <div class="day-count">3 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:50.41040975336677%"></div></div>
+            <div class="day-dur">2h 04m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day08</div>
+            <div class="day-count">5 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:83.44102736338517%"></div></div>
+            <div class="day-dur">3h 26m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-full" id="stage-15">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#15</span>
+                <span class="stage-short">多模态</span>
+                <span class="badge badge-full">全看</span>
+                
+            </div>
+            <div class="stage-fullname">阶段15：多模态大模型</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">22</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">16h 45m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">16.8h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">11.2h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">8.4h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:32.4835203983448%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:32.455788729974415%"></div></div>
+        </div>
+        <div class="stage-note">💡 CLIP / VLM / Diffusion — 2026 落地热门,应用层可能用到</div>
+        <details class="stage-days">
+            <summary>每日明细 (4 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">5 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:94.32514480225814%"></div></div>
+            <div class="day-dur">4h 21m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">6 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">4h 37m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">6 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:83.55368086837859%"></div></div>
+            <div class="day-dur">3h 51m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">5 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:85.20007428641456%"></div></div>
+            <div class="day-dur">3h 56m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-full" id="stage-16">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#16</span>
+                <span class="stage-short">⭐ LangGraph</span>
+                <span class="badge badge-full">全看</span>
+                
+            </div>
+            <div class="stage-fullname">阶段16：LangGraph（2026年1月开始）</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">57</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">12h 19m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">12.3h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">8.2h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">6.2h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:23.866172629638296%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:23.871959233031927%"></div></div>
+        </div>
+        <div class="stage-note">💡 ⭐ 2026 最热的工作流编排,必精通</div>
+        <details class="stage-days">
+            <summary>每日明细 (4 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">19 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:67.65097082858725%"></div></div>
+            <div class="day-dur">2h 53m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">12 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:43.102797298310044%"></div></div>
+            <div class="day-dur">1h 50m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">13 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:76.95531388702254%"></div></div>
+            <div class="day-dur">3h 17m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">13 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">4h 16m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-full" id="stage-17">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#17</span>
+                <span class="stage-short">⭐ 项目四:点餐 Agent</span>
+                <span class="badge badge-full">全看</span>
+                
+            </div>
+            <div class="stage-fullname">阶段17：智能体项目四：Agent智能体点餐</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">59</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">14h 56m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">14.9h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">10.0h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">7.5h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:28.941947961561716%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:28.929249297821976%"></div></div>
+        </div>
+        <div class="stage-note">💡 ⭐ 简历主菜,自己重写一遍</div>
+        <details class="stage-days">
+            <summary>每日明细 (3 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">25 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">5h 38m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">18 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:88.23242021277774%"></div></div>
+            <div class="day-dur">4h 58m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">16 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:76.67486326050758%"></div></div>
+            <div class="day-dur">4h 19m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-full" id="stage-18">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#18</span>
+                <span class="stage-short">⭐ 项目五:多智能体 ITS</span>
+                <span class="badge badge-full">全看</span>
+                
+            </div>
+            <div class="stage-fullname">阶段18：智能体项目五：多智能体ITS</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">125</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">39h 03m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">39.0h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">26.0h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">19.5h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:75.68945648997955%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:75.66558506898514%"></div></div>
+        </div>
+        <div class="stage-note">💡 ⭐ 最大项目 39h,多智能体协作,简历王牌</div>
+        <details class="stage-days">
+            <summary>每日明细 (7 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">16 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:88.86535597943663%"></div></div>
+            <div class="day-dur">5h 34m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">13 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:64.01392813216472%"></div></div>
+            <div class="day-dur">4h 00m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">17 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:90.50985037385473%"></div></div>
+            <div class="day-dur">5h 40m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">21 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:92.34842217273932%"></div></div>
+            <div class="day-dur">5h 47m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day05</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:91.97681110015091%"></div></div>
+            <div class="day-dur">5h 45m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day06</div>
+            <div class="day-count">22 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:95.83218452433898%"></div></div>
+            <div class="day-dur">6h 00m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day07</div>
+            <div class="day-count">22 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">6h 15m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-full" id="stage-19">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#19</span>
+                <span class="stage-short">⭐ 项目六:智能问数</span>
+                <span class="badge badge-full">全看</span>
+                
+            </div>
+            <div class="stage-fullname">阶段19：智能体项目六：Agent智能体问数</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">46</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">16h 36m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">16.6h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">11.1h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">8.3h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:32.179073258808025%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:32.16513987567614%"></div></div>
+        </div>
+        <div class="stage-note">💡 ⭐ Text2SQL + Agent,简历主菜</div>
+        <details class="stage-days">
+            <summary>每日明细 (4 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">13 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:92.60035697910462%"></div></div>
+            <div class="day-dur">4h 04m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">12 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:92.15457257199795%"></div></div>
+            <div class="day-dur">4h 02m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">9 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">4h 23m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">12 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:93.29290428307266%"></div></div>
+            <div class="day-dur">4h 05m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+
+<h2 class="section-title">🎁 额外附送 5 个项目</h2>
+
+    <section class="stage stage-full" id="bonus-1">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#01</span>
+                <span class="stage-short">⭐ RAG 实战</span>
+                <span class="badge badge-full">全看</span>
+                
+            </div>
+            <div class="stage-fullname">附送01：RAG与项目实战</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">73</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">23h 51m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">23.9h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">15.9h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">11.9h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:46.21638380917521%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:46.21316783342626%"></div></div>
+        </div>
+        <div class="stage-note">💡 ⭐ RAG 是 2026 最常见项目,必看</div>
+        <details class="stage-days">
+            <summary>每日明细 (1 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">其他散文件</div>
+            <div class="day-count">73 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">23h 51m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-full" id="bonus-2">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#02</span>
+                <span class="stage-short">面试专题</span>
+                <span class="badge badge-full">全看</span>
+                
+            </div>
+            <div class="stage-fullname">附送02：面试专题与企业开发</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">36</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">11h 46m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">11.8h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">7.8h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">5.9h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:22.828359224458865%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:22.806246767271578%"></div></div>
+        </div>
+        <div class="stage-note">💡 找工作前 1-2 个月集中刷</div>
+        <details class="stage-days">
+            <summary>每日明细 (1 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">其他散文件</div>
+            <div class="day-count">36 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">11h 46m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-skip" id="bonus-3">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#03</span>
+                <span class="stage-short">自主案例</span>
+                <span class="badge badge-skip">跳过</span>
+                <span class="badge badge-saved">省 3.7h</span>
+            </div>
+            <div class="stage-fullname">附送03：需要自主完成的案例【不讲课】</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">13</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">3h 40m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">0.0h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">0.0h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">0.0h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:7.109830744299721%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:0.0%"></div></div>
+        </div>
+        <div class="stage-note">💡 练手作业,优先级低</div>
+        <details class="stage-days">
+            <summary>每日明细 (2 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">2 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:8.36700974770172%"></div></div>
+            <div class="day-dur">0h 16m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">其他散文件</div>
+            <div class="day-count">11 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">3h 23m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-skip" id="bonus-4">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#04</span>
+                <span class="stage-short">阶段测试</span>
+                <span class="badge badge-skip">跳过</span>
+                
+            </div>
+            <div class="stage-fullname">附送04：阶段测试</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">0</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">0h 00m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">0.0h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">0.0h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">0.0h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:0.0%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:0.0%"></div></div>
+        </div>
+        <div class="stage-note">💡 (无视频)</div>
+        <details class="stage-days">
+            <summary>每日明细 (0 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+            </div>
+        </details>
+    </section>
+    <section class="stage stage-full" id="bonus-5">
+        <div class="stage-head">
+            <div class="stage-title">
+                <span class="stage-idx">#05</span>
+                <span class="stage-short">AI 客服项目</span>
+                <span class="badge badge-full">全看</span>
+                
+            </div>
+            <div class="stage-fullname">附送05：AI智能客服项目</div>
+        </div>
+        <div class="stage-stats">
+            <div class="stat"><div class="stat-num">55</div><div class="stat-label">视频数</div></div>
+            <div class="stat"><div class="stat-num">13h 01m</div><div class="stat-label">完整时长</div></div>
+            <div class="stat highlight"><div class="stat-num">13.0h</div><div class="stat-label">应用层看</div></div>
+            <div class="stat"><div class="stat-num">8.7h</div><div class="stat-label">@ 1.5x</div></div>
+            <div class="stat"><div class="stat-num">6.5h</div><div class="stat-label">@ 2.0x</div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">完整</div>
+            <div class="dual-track"><div class="dual-fill dual-full" style="width:25.22785120901473%"></div></div>
+        </div>
+        <div class="dual-bar">
+            <div class="dual-label">应用层</div>
+            <div class="dual-track"><div class="dual-fill dual-app" style="width:25.228320553090562%"></div></div>
+        </div>
+        <div class="stage-note">💡 完整客服项目,简历补充</div>
+        <details class="stage-days">
+            <summary>每日明细 (4 天)</summary>
+            <div class="day-table">
+                <div class="day-row day-head">
+                    <div class="day-name">Day</div>
+                    <div class="day-count">视频数</div>
+                    <div class="day-bar">时长</div>
+                    <div class="day-dur">总计</div>
+                </div>
+                
+        <div class="day-row">
+            <div class="day-name">Day01</div>
+            <div class="day-count">20 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:100.0%"></div></div>
+            <div class="day-dur">3h 56m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day02</div>
+            <div class="day-count">12 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:73.9193025044702%"></div></div>
+            <div class="day-dur">2h 54m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day03</div>
+            <div class="day-count">14 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:83.57426404196617%"></div></div>
+            <div class="day-dur">3h 17m</div>
+        </div>
+        <div class="day-row">
+            <div class="day-name">Day04</div>
+            <div class="day-count">9 个</div>
+            <div class="day-bar"><div class="day-bar-fill" style="width:73.03720782896929%"></div></div>
+            <div class="day-dur">2h 52m</div>
+        </div>
+            </div>
+        </details>
+    </section>
+
+<footer>
+    数据基于直接解析 1956 个视频容器头(WMV/ASF + MP4/ISO-BMFF)<br>
+    应用层小时数为我的策略建议,可按你实际进度调整 · 生成于 2026-05-21
+</footer>
+
+</div>
+</body>
+</html>
