@@ -43,3 +43,6 @@ datasets/
 # PDF：以后默认不进 git（避免误传大文件）
 # 已经 git add 进去的不受影响。如需破例可用 git add -f
 *.pdf
+
+# 课程代码副本：本地学习用，不传公开仓库（版权考虑）
+course-study/
