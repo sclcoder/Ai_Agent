@@ -1,0 +1,41 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# 虚拟环境
+venv/
+.venv/
+env/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 大文件 / 模型 / 检查点（按需在子项目里覆盖）
+*.pkl
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.h5
+*.onnx
+models/
+checkpoints/
+
+# 数据集（个别小 CSV 可以用 git add -f 强加）
+*.parquet
+data/
+datasets/
